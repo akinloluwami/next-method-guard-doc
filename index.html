@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restrict HTTP methods in NextJS - next-method-guard</title>
+  </head>
+  <body>
+    <div class="">
+      <h1>Next Method Guard</h1>
+      <p>A NextJS middleware for restricting HTTP methods in API endpoints.</p>
+      <pre>
+ <code id="htmlViewer" style="color:rgb(214, 222, 235); font-weight:400;background-color:rgb(1, 22, 39);background:rgb(1, 22, 39);display:block;padding: .5em;">npm i next<span style="color:rgb(214, 222, 235); font-weight:400;">-</span><span style="color:rgb(199, 146, 234); font-weight:400;">method</span><span style="color:rgb(214, 222, 235); font-weight:400;">-</span>guard <span style="color:rgb(214, 222, 235); font-weight:400;">||</span> yarn <span style="color:rgb(199, 146, 234); font-weight:400;">add</span> next<span style="color:rgb(214, 222, 235); font-weight:400;">-</span><span style="color:rgb(199, 146, 234); font-weight:400;">method</span><span style="color:rgb(214, 222, 235); font-weight:400;">-</span>guard</code></pre>
+      <div class="">
+        <div class="">
+          <h3>With next-method-guard</h3>
+          <div class="">
+            <pre>
+ <code id="htmlViewer" style="color:rgb(214, 222, 235); font-weight:400;background-color:rgb(1, 22, 39);background:rgb(1, 22, 39);display:block;padding: .5em;"><span style="color:rgb(199, 146, 234); font-weight:400;">import</span> <span style="color:rgb(199, 146, 234); font-weight:400;">type</span> { <span class="hljs-title class_">NextApiRequest</span>, <span class="hljs-title class_">NextApiResponse</span> } <span style="color:rgb(199, 146, 234); font-weight:400;">from</span> <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;next&quot;</span>;
+<span style="color:rgb(199, 146, 234); font-weight:400;">import</span> { allowMethods } <span style="color:rgb(199, 146, 234); font-weight:400;">from</span> <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;next-method-guard&quot;</span>;
+
+<span style="color:rgb(199, 146, 234); font-weight:400;">const</span> <span class="hljs-title function_">handler</span> = (<span style="color:rgb(127, 219, 202); font-weight:400;">req: NextApiRequest, res: NextApiResponse</span>) =&gt; {
+  res.<span class="hljs-title function_">status</span>(<span style="color:rgb(247, 140, 108); font-weight:400;">200</span>).<span class="hljs-title function_">json</span>({ <span style="color:rgb(127, 219, 202); font-weight:400;">message</span>: <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;Success&quot;</span> });
+};
+
+<span style="color:rgb(199, 146, 234); font-weight:400;">export</span> <span style="color:rgb(199, 146, 234); font-weight:400;">default</span> <span class="hljs-title function_">allowMethods</span>([<span style="color:rgb(236, 196, 141); font-weight:400;">&quot;POST&quot;</span>])(handler);</code></pre>
+          </div>
+        </div>
+        <div class="">
+          <h3>Without next-method-guard</h3>
+          <div class="">
+            <pre>
+ <code id="htmlViewer" style="color:rgb(214, 222, 235); font-weight:400;background-color:rgb(1, 22, 39);background:rgb(1, 22, 39);display:block;padding: .5em;"><span style="color:rgb(199, 146, 234); font-weight:400;">import</span> <span style="color:rgb(199, 146, 234); font-weight:400;">type</span> { <span class="hljs-title class_">NextApiRequest</span>, <span class="hljs-title class_">NextApiResponse</span> } <span style="color:rgb(199, 146, 234); font-weight:400;">from</span> <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;next&quot;</span>;
+
+<span style="color:rgb(199, 146, 234); font-weight:400;">const</span> <span class="hljs-title function_">handler</span> = (<span style="color:rgb(127, 219, 202); font-weight:400;">req: NextApiRequest, res: NextApiResponse</span>) =&gt; {
+  <span style="color:rgb(199, 146, 234); font-weight:400;">if</span> (req.<span style="color:rgb(214, 222, 235); font-weight:400;">method</span> === <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;POST&quot;</span>) {
+    res.<span class="hljs-title function_">status</span>(<span style="color:rgb(247, 140, 108); font-weight:400;">200</span>).<span class="hljs-title function_">json</span>({ <span style="color:rgb(127, 219, 202); font-weight:400;">message</span>: <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;Success&quot;</span> });
+  } <span style="color:rgb(199, 146, 234); font-weight:400;">else</span> {
+    res.<span class="hljs-title function_">status</span>(<span style="color:rgb(247, 140, 108); font-weight:400;">405</span>).<span class="hljs-title function_">json</span>({ <span style="color:rgb(127, 219, 202); font-weight:400;">message</span>: <span style="color:rgb(236, 196, 141); font-weight:400;">&quot;Method not allowed&quot;</span> });
+  }
+};
+
+<span style="color:rgb(199, 146, 234); font-weight:400;">export</span> <span style="color:rgb(199, 146, 234); font-weight:400;">default</span> handler;
+</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      Created with ❤️ by
+      <a
+        href="http://twitter.com/xing0x"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Akinkunmi</a
+      >
+    </p>
+  </body>
+</html>
